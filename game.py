@@ -19,9 +19,9 @@ class Program:
     words_dictionary: dict = {}  # words and their definitions and examples
     definition_index: dict = {}  # definitions indexed to their positions
     
-    # ------------------
-    # ----- PUBLIC -----
-    # ------------------
+# ------------------
+# ----- PUBLIC -----
+# ------------------
     
     def __init__(self):
         self.words_dictionary = importWords(WORDS_FILE)
@@ -51,9 +51,9 @@ class Program:
             else:
                 print(f'{PRINT_PREFIX} Unknown command: "{cmd}"')
 
-    # -------------------
-    # ----- PRIVATE -----
-    # -------------------
+# -------------------
+# ----- PRIVATE -----
+# -------------------
 
     # Program loop
     def _loop(self) -> None:
@@ -69,9 +69,11 @@ class Program:
             # insert actual definition at random index
             definitions.insert(random.randint(0, len(definitions)-1), WORD_DEF)
 
-            # print word, an example and the definitions
-            print(WORD, '\n\t"', self.words_dictionary[WORD]['example'].strip(), '"')
+            # print word and an example
+            try: print(WORD, '\n\t"' + self.words_dictionary[WORD]['example'] + '"')
+            except KeyError: print(WORD)  # if no example, just print the word
             print()  # newline
+            # print the definitions
             self._printChoices(definitions)
 
             # receive user guess
@@ -102,7 +104,7 @@ class Program:
                 except KeyError: Stats.correct_words[WORD] = 1
                 
             else:
-                print(f'Wrong! Correct answer:\n{WORD_DEF}')
+                print(f'Wrong. Correct answer:\n{WORD_DEF}')
                 Stats.incorrect_answers += 1
                 
                 try: Stats.incorrect_words[WORD] += 1
@@ -121,9 +123,9 @@ class Program:
             
         print()  # newline
 
-    # --------------------------
-    # ----- Game functions -----
-    # --------------------------
+# --------------------------
+# ----- Game functions -----
+# --------------------------
 
     def _getRandomWord(self) -> tuple[int, str, str]:
         """Generates a random index and pulls the word and its definition,
