@@ -10,8 +10,10 @@ I recommend the user to tailor the dictionary for oneself. This can be done manu
 ## Usage:
 As there're no 3rd-party libraries involved you can simply and safely run the program without any virtual environment.
 
-Main trainer program:
+Game/trainer program:
+
 `python main.py`
 
 The dictionary manager:
+
 `python dictionaryManager.py`
