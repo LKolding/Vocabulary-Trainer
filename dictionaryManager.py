@@ -1,5 +1,5 @@
 import os
-from fileIO import importWords, exportWords
+from fileIO import exportWords
 
 from game import WORDS_FILE
 

@@ -1,10 +1,14 @@
-import random
-import os
+import random  # for random insertion of the correct answer
+import os      # for console clear (os.system())
 
-from fileIO import importWords
+from wordDictionary import WordDictionary, MultipleChoice
+
 
 WORDS_FILE = 'dictionary.json'
 PRINT_PREFIX = '[*]'
+
+def clearConsole() -> None:
+    os.system('cls||clear')
 
 
 class Stats:
@@ -16,25 +20,21 @@ class Stats:
 
 
 class Program:
-    words_dictionary: dict = {}  # words and their definitions and examples
-    definition_index: dict = {}  # definitions indexed to their positions
+    word_dictionary: WordDictionary
     
 # ------------------
 # ----- PUBLIC -----
 # ------------------
     
     def __init__(self):
-        self.words_dictionary = importWords(WORDS_FILE)
-        # sort definitions into definition_index
-        for n, word in enumerate(self.words_dictionary):
-            self.definition_index[n] = self.words_dictionary[word]['definition']
+        self.words_dictionary = WordDictionary(WORDS_FILE)
         
     # Start game
     def run(self) -> None:
         while True:
             print()
             print('\tWelcome to my simple vocabulary trainer program!')
-            print('\tThe way it works is that you get a word and four possible definitions.')
+            print('\tIt works by giving a word and four possible definitions.')
             print('\tOne is correct and you will simply enter the number of your guess and press enter.')
             print("\tAfterwards the correct answer will appear")
             print()  # newline
@@ -45,11 +45,8 @@ class Program:
 
             elif cmd == "":
                 self._loop()  # begin game
-                self._quit()
+                self._quit()  # clean exit upon return
                 break
-
-            else:
-                print(f'{PRINT_PREFIX} Unknown command: "{cmd}"')
 
 # -------------------
 # ----- PRIVATE -----
@@ -60,55 +57,56 @@ class Program:
         cmd:str = ''
         
         while cmd != 'q':
-            # clear console
-            os.system('cls || clear')
-            # get random word, index of it and its definition
-            WORD_NO, WORD, WORD_DEF = self._getRandomWord()
-            # get random definitions
-            definitions: list[str] = self._getRandomDefs(WORD_NO)
-            # insert actual definition at random index
-            definitions.insert(random.randint(0, len(definitions)-1), WORD_DEF)
+            clearConsole()
 
-            # print word and an example
-            try: print(WORD, '\n\t"' + self.words_dictionary[WORD]['example'] + '"')
-            except KeyError: print(WORD)  # if no example, just print the word
+            mc: MultipleChoice = self.words_dictionary.generateMC()
+
+            # print word and the example
+            print(mc.word, '\n\t"' + mc.example + '"')
             print()  # newline
-            # print the definitions
-            self._printChoices(definitions)
+
+            # get a list of random definitions
+            choices: list = list(mc.incorrect_choices)
+            # insert correct definition at random index
+            choices.insert(random.randint(0, len(mc.incorrect_choices)-1), mc.definition)
+
+            # print all choices
+            for n, i in enumerate(choices):
+                print(f' {n+1}) {i}')
 
             # receive user guess
             print()  # newline
-            cmd = input('Type your guess: ')
+            cmd = input('Guess: ')
             if cmd == 'q': continue  # early exit
             
             # test if guess is a valid integer AND is within range of possible answers
             try: 
-                int(cmd)                 # valid int
-                definitions[int(cmd)-1]  # within range
+                int(cmd)                # valid int
+                choices[int(cmd)-1]     # within range 
                 
             except ValueError: 
-                input(f'[ERROR] "{cmd}" is not a valid guess\n Press enter to keep playing...\n')
+                input(f'[ERROR] {cmd} is not a valid guess\n Press enter to keep playing...')
                 continue
             
             except IndexError:
-                input(f'[ERROR] "{cmd}" is not a valid guess\n Press enter to keep playing...\n')
+                input(f'[ERROR] {cmd} is not a valid guess\n Press enter to keep playing...')
                 continue
 
 
             # evaluate answer
-            if definitions[int(cmd)-1] == WORD_DEF:
+            if choices[int(cmd)-1] == mc.definition:
                 print("Correct!")
                 Stats.correct_answers += 1
                 
-                try: Stats.correct_words[WORD] += 1
-                except KeyError: Stats.correct_words[WORD] = 1
+                try: Stats.correct_words[mc.word] += 1
+                except KeyError: Stats.correct_words[mc.word] = 1
                 
             else:
-                print(f'Wrong. Correct answer:\n{WORD_DEF}')
+                print(f'Wrong. Correct answer:\n\n{mc.definition}')
                 Stats.incorrect_answers += 1
                 
-                try: Stats.incorrect_words[WORD] += 1
-                except KeyError: Stats.incorrect_words[WORD] = 1
+                try: Stats.incorrect_words[mc.word] += 1
+                except KeyError: Stats.incorrect_words[mc.word] = 1
                     
             input()  # pause and let user continue...
             
@@ -122,55 +120,3 @@ class Program:
             print(f'{w+":":20s}{Stats.incorrect_words[w]:>2}')
             
         print()  # newline
-
-# --------------------------
-# ----- Game functions -----
-# --------------------------
-
-    def _getRandomWord(self) -> tuple[int, str, str]:
-        """Generates a random index and pulls the word and its definition,
-        wraps them in a tuple and returns it.
-
-        Returns:
-            tuple[int, str, str]: word index, word and word definition
-        """
-        # index of the word to be guessed
-        WORD_NO: int = random.randint(0, len(self.words_dictionary)-1)
-        # word to be gussed
-        WORD: str = [w for n, w in enumerate(self.words_dictionary) if n == WORD_NO][0]  # [0] converts from list to str
-        # definition of word to be guessed
-        WORD_DEF: str = self.definition_index[WORD_NO]
-        # return elements
-        return (WORD_NO, WORD, WORD_DEF)
-
-
-    def _getRandomDefs(self, chosen_word_index: int, amount: int = 3) -> list:
-        """Generates X random indices (X = amount parameter), computes them,
-        wraps them in a list and returns it. chosen_word_index is necessary
-        to ensure they aren't the word to be guessed
-
-        Args:
-            chosen_word_index (int): Index of word to be guessed. Necessary for ensuring its definition won't appear twice
-            amount (int, optional):  Amount of definitions to generate. Defaults to 3.
-
-        Returns:
-            list: collection of definitions
-        """
-        # random words' definitions
-        random_definitions: list[str] = []
-        # pick random definitions
-        while len(random_definitions) < amount:
-            completed = False
-            while not completed:
-                # compute random index
-                random_index = random.randint(0, len(self.words_dictionary)-1)
-                if self.definition_index[random_index] not in random_definitions and random_index is not chosen_word_index:
-                    random_definitions.append(self.definition_index[random_index])
-                    completed = True
-                    
-        return random_definitions
-
-
-    def _printChoices(self, choices: list[str]) -> None:
-        for n, i in enumerate(choices):
-            print(f' {n+1}) {i}')

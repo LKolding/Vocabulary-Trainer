@@ -1,15 +1,15 @@
 import json
 
 
-def importWords(filename: str) -> dict:
+def importWords(filePath: str) -> dict:
     words: dict
 
     try:
-        with open(filename) as f: 
+        with open(filePath) as f: 
             words = json.load(f)
         
     except OSError:
-        print(f'Something went wrong when opening file {filename}. Dictionary has not been be loaded.')
+        print(f'Something went wrong when opening file {filePath}. Dictionary has not been be loaded.')
         
     else:
         return words
