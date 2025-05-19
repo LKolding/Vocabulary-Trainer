@@ -6,6 +6,10 @@ from wordDictionary import WordDictionary, MultipleChoice
 
 WORDS_FILE = 'dictionary.json'
 PRINT_PREFIX = '[*]'
+# skip words that have been correctly guessed
+SKIP_CORRECT_WORDS = True
+PRINT_EXAMPLE = False
+
 
 def clearConsole() -> None:
     os.system('cls||clear')
@@ -15,12 +19,14 @@ class Stats:
     correct_answers: int = 0
     incorrect_answers: int = 0
     
-    correct_words: dict = {}
+    correct_words: list = []
+    # keeps account of how many times a word have been wrongfully guessed
+    # eg. {'succinctly' : 3}
     incorrect_words: dict = {}
 
 
 class Program:
-    word_dictionary: WordDictionary
+    words_dictionary: WordDictionary
     
 # ------------------
 # ----- PUBLIC -----
@@ -61,14 +67,23 @@ class Program:
 
             mc: MultipleChoice = self.words_dictionary.generateMC()
 
-            # print word and the example
-            print(mc.word, '\n\t"' + mc.example + '"')
-            print()  # newline
+            while SKIP_CORRECT_WORDS and mc.word in Stats.correct_words:
+                if len(Stats.correct_words) == len(self.words_dictionary.all_words):
+                    input('\n\tAll words have been succesfully guessed.\n\tThanks for playing!\n\nPress enter to quit...')
+                    return
+                    
+                mc = self.words_dictionary.generateMC()  # keep generating
 
             # get a list of random definitions
             choices: list = list(mc.incorrect_choices)
             # insert correct definition at random index
-            choices.insert(random.randint(0, len(mc.incorrect_choices)-1), mc.definition)
+            choices.insert(random.randint(0, len(mc.incorrect_choices)), mc.definition)
+
+            # print word
+            print(mc.word)
+            if PRINT_EXAMPLE:
+                print('\n\t"' + mc.example + '"')
+            print()  # newline
 
             # print all choices
             for n, i in enumerate(choices):
@@ -82,24 +97,19 @@ class Program:
             # test if guess is a valid integer AND is within range of possible answers
             try: 
                 int(cmd)                # valid int
-                choices[int(cmd)-1]     # within range 
+                choices[int(cmd)-1]     # within range
                 
-            except ValueError: 
+            except (ValueError, IndexError):
                 input(f'[ERROR] {cmd} is not a valid guess\n Press enter to keep playing...')
                 continue
-            
-            except IndexError:
-                input(f'[ERROR] {cmd} is not a valid guess\n Press enter to keep playing...')
-                continue
-
 
             # evaluate answer
             if choices[int(cmd)-1] == mc.definition:
                 print("Correct!")
                 Stats.correct_answers += 1
                 
-                try: Stats.correct_words[mc.word] += 1
-                except KeyError: Stats.correct_words[mc.word] = 1
+                if mc.word not in Stats.correct_words:
+                    Stats.correct_words.append(mc.word)
                 
             else:
                 print(f'Wrong. Correct answer:\n\n{mc.definition}')

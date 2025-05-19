@@ -6,20 +6,20 @@ from fileIO import importWords
 
 @dataclass(frozen=True)
 class MultipleChoice:
-    """Immutable dataclass for a multiple choice questionaire"""
+    """Immutable dataclass for one multiple choice question"""
     word: str
     definition: str
     example: str
-    # collection of definitions
     incorrect_choices: tuple[str]
     
 
 class WordDictionary:
     words_dictionary: dict  # raw contents of the json file
     
-    # these two fields below are pre-computed in the constructor
-    index_word: dict = {}  # words mapped to their indeces
-    word_def: dict = {}    # definitions mapped to their words
+    # the fields below are pre-computed in the constructor
+    index_to_word: dict = {}        # words mapped to their indeces
+    word_to_definition: dict = {}   # definitions mapped to their words
+    all_words: tuple
 
 # ------------------
 # ----- PUBLIC -----
@@ -27,13 +27,17 @@ class WordDictionary:
 
     def __init__(self, filePath: str):
         self.words_dictionary = importWords(filePath)
+        # pre-compute members
+        words_list = []
         for n, w in enumerate(self.words_dictionary):
-            self.index_word[n] = w
-            self.word_def[w] = self.words_dictionary[w]['definition']
+            self.index_to_word[n] = w
+            self.word_to_definition[w] = self.words_dictionary[w]['definition']
+            words_list.append(w)
+        self.all_words = tuple(words_list)
             
     def generateMC(self) -> MultipleChoice:
         word, definition, example = self._getRandomWord()
-        return MultipleChoice(word, definition, example, self._getRandomDefs(word))
+        return MultipleChoice(word, definition, example, self._getRandomDefs(word, 4))
     
     
 # -------------------
@@ -74,8 +78,8 @@ class WordDictionary:
             while not completed:
                 # compute random index
                 random_index = random.randint(0, len(self.words_dictionary)-1)
-                if self.word_def[self.index_word[random_index]] not in random_definitions and self.index_word[random_index] is not avoid:
-                    random_definitions.append(self.word_def[self.index_word[random_index]])
+                if self.word_to_definition[self.index_to_word[random_index]] not in random_definitions and self.index_to_word[random_index] is not avoid:
+                    random_definitions.append(self.word_to_definition[self.index_to_word[random_index]])
                     completed = True
                     
         return tuple(random_definitions)

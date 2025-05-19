@@ -16,7 +16,7 @@ def importWords(filePath: str) -> dict:
 
 
 def exportWords(filename: str, words: dict) -> None:
-    """Reads all existing words from the 'filename' and adds the new word(s) to the existing dictionary.
+    """Reads contents of 'filename', adds the new word(s) then rewrites all of them to 'filename.
 
     Args:
         filename (str): filename of the (json formatted) dictionary of words

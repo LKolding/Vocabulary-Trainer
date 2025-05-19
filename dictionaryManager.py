@@ -1,5 +1,5 @@
 import os
-from fileIO import exportWords
+from fileIO import exportWords, importWords
 
 from game import WORDS_FILE
 
@@ -41,7 +41,7 @@ if __name__=="__main__":
             WORD_DEFINITON = input('Enter the definition: ')
             WORD_EXAMPLE = input('Enter an example: ')
             
-            # display the entry for confirmation
+            # display the new entry for confirmation
             os.system('cls||clear')
             print(f'{WORD}\n{WORD_DEFINITON}\n"{WORD_EXAMPLE}"')
             print()  # newline
@@ -49,25 +49,26 @@ if __name__=="__main__":
             # confirm the entry is correct
             cmd2 = input('Save word in dictionary? (y/n)')
             if cmd2 == 'y':
-                # store entry in data class
-                Data.words_to_be_saved[WORD] = {}
-                Data.words_to_be_saved[WORD]['definition'] = WORD_DEFINITON
-                Data.words_to_be_saved[WORD]['example'] = WORD_EXAMPLE
-            
-            elif cmd2 == 'n':
-                continue
+                UtilFunctions.addWord(WORD, WORD_DEFINITON, WORD_EXAMPLE)
             
             else:
-                print(f'Unknown command: {cmd2}')
                 continue
         
         # remove word
         elif cmd == 'r':
-            print('this functionality is not added yet')
+            print('[ERROR] This functionality is not added yet\n')
+            input('Press enter to continue...')
         
         # print all words in dictionary
         elif cmd == 's':
-            print('this functionality is not added yet')
+            words_dict = importWords(WORDS_FILE)
+            words_string: str = ''
+            for n, w in enumerate(words_dict):
+                # add comma and space after each word but the last
+                words_string += f'{w}, ' if n is not len(words_dict)-1 else w
+                
+            print(words_string)
+            input()
         
         # save and quit
         elif cmd == 'q':
