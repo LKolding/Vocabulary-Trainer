@@ -1,70 +1,150 @@
 {
-    "flummoxed" : {
-        "definition" : "bewildered or perplexed",
-        "example" : "he became flummoxed and speechless"
-    },
-    "estrangement" : {
-        "definition" : "a period when you are estranged from someone (= no longer friendly with them), or the fact of no longer being friendly",
-        "example" : "their reunion followed a long estrangement"
-    },
-    "ostentatious" : {
-        "definition" : "characterized by pretentious or showy display; designed to impress",
-        "example" : "a simple design that is glamorous without being ostentatious"
-    },
-    "exultant" : {
-        "definition" : "filled with or expressing great joy or triumph",
-        "example" : "an exultant cheer"
-    },
-    "meticulous" : {
-        "definition" : "showing great attention to detail; very careful and precise",
-        "example" : "the designs are hand-glazed with meticulous care"
-    },
-    "invigorating" : {
-        "definition" : "making one feel strong, healthy, and full of energy",
-        "example" : "a brisk, invigorating walk"
-    },
-    "disconsolate" : {
-        "definition" : "very unhappy and unable to be comforted",
-        "example" : "she left Fritz looking disconsolate"
-    },
-    "surreptitously" : {
-        "definition" : "secretly, without anyone seeing or knowing",
-        "example" : "Joe surreptitiously had a look in the answer book"
-    },
-    "brusquely" : {
-        "definition" : "in a way that is quick and slightly rude",
-        "example" : "The vender brusquely elbowed me aside to talk to the next customer"
-    },
-    "extricate" : {
-        "definition" : "free (someone or something) from a constraint or difficulty",
-        "example" : "he was trying to extricate himself from official duties"
-    },
-    "sanctimonious" : {
-        "definition" : "making a show of being morally superior to other people.",
-        "example" : "what happened to all the sanctimonious talk about putting his family first?"
-    },
-    "tentative" : {
-        "definition" : "not certain or fixed; provisional",
-        "example" : "a tentative conclusion"
-    },
-    "protracted" : {
-        "definition" : "lasting for a long time or longer than expected or usual",
-        "example" : "a protracted and bitter dispute"
-    },
-    "disparagingly" : {
-        "definition" : "in a critical or unkind way that shows you do not respect someone or something",
-        "example" : "she denied they had a relationship but she never spoke disparagingly of him"
-    },
-    "crestfallen" : {
-        "definition" : "sad and disappointed",
-        "example" : "he came back empty-handed and crestfallen"
-    },
-    "exuberant" : {
-        "definition" : "full of energy, excitement, and cheerfulness.",
-        "example" : "a noisy bunch of exuberant youngsters"
-    },
-    "sepulchral" : {
-        "definition" : "relating to a tomb or interment",
-        "example" : "sepulchral monuments"
-    }
+  "accost": {
+    "definition": "approach and address (someone) boldly or aggressively",
+    "example": "reporters accosted him in the street"
+  },
+  "asperity": {
+    "definition": "the quality of being severe in the way that you speak and behave",
+    "example": "the asperity of her manner"
+  },
+  "brusquely": {
+    "definition": "in a way that is quick and slightly rude",
+    "example": "The vender brusquely elbowed me aside to talk to the next customer"
+  },
+  "crestfallen": {
+    "definition": "sad and disappointed",
+    "example": "he came back empty-handed and crestfallen"
+  },
+  "disconsolate": {
+    "definition": "very unhappy and unable to be comforted",
+    "example": "she left Fritz looking disconsolate"
+  },
+  "disparagingly": {
+    "definition": "in a critical or unkind way that shows you do not respect someone or something",
+    "example": "she denied they had a relationship but she never spoke disparagingly of him"
+  },
+  "enigmatic": {
+    "definition": "difficult to interpret or understand; mysterious",
+    "example": "he took the money with an enigmatic smile"
+  },
+  "estrangement": {
+    "definition": "a period when you are estranged from someone (= no longer friendly with them), or the fact of no longer being friendly",
+    "example": "their reunion followed a long estrangement"
+  },
+  "excursion": {
+    "definition": "a short journey usually made for pleasure, often by a group of people",
+    "example": "This year's annual excursion will be to Lincoln"
+  },
+  "extricate": {
+    "definition": "free (someone or something) from a constraint or difficulty",
+    "example": "he was trying to extricate himself from official duties"
+  },
+  "exuberant": {
+    "definition": "full of energy, excitement, and cheerfulness.",
+    "example": "a noisy bunch of exuberant youngsters"
+  },
+  "exultant": {
+    "definition": "filled with or expressing great joy or triumph",
+    "example": "an exultant cheer"
+  },
+  "fervently": {
+    "definition": "in a way that shows that your beliefs are strong and sincerely felt",
+    "example": "They wanted to change the political order that they so fervently opposed"
+  },
+  "flummoxed": {
+    "definition": "bewildered or perplexed",
+    "example": "he became flummoxed and speechless"
+  },
+  "haughty": {
+    "definition": "arrogantly superior and disdainful",
+    "example": "a look of haughty disdain"
+  },
+  "imprecation": {
+    "definition": "an offensive word",
+    "example": "The old woman walked along the street muttering imprecations"
+  },
+  "incursion": {
+    "definition": "a sudden attack on or act of going into a place, especially across a border",
+    "example": "incursions into enemy territory"
+  },
+  "invigorating": {
+    "definition": "making one feel strong, healthy, and full of energy",
+    "example": "a brisk, invigorating walk"
+  },
+  "meticulous": {
+    "definition": "showing great attention to detail; very careful and precise",
+    "example": "the designs are hand-glazed with meticulous care"
+  },
+  "mollify": {
+    "definition": "to make someone less angry or upset",
+    "example": "I tried to mollify her by giving her flowers"
+  },
+  "ostentatious": {
+    "definition": "characterized by pretentious or showy display; designed to impress",
+    "example": "a simple design that is glamorous without being ostentatious"
+  },
+  "placatory": {
+    "definition": "trying to avoid making someone angry",
+    "example": "The tone of the letter was placatory"
+  },
+  "plaintive": {
+    "definition": "sounding sad and mournful",
+    "example": "a plaintive cry"
+  },
+  "protracted": {
+    "definition": "lasting for a long time or longer than expected or usual",
+    "example": "a protracted and bitter dispute"
+  },
+  "reproachful": {
+    "definition": "expressing disapproval or disappointment",
+    "example": "she gave him a reproachful look"
+  },
+  "reprovingly": {
+    "definition": "in a way that shows that you disapprove of someone's bad or silly behaviour",
+    "example": "When she saw me getting up to leave, she slowly shook her head at me reprovingly"
+  },
+  "rigorous": {
+    "definition": "extremely thorough and careful",
+    "example": "the rigorous testing of consumer products"
+  },
+  "ruefully": {
+    "definition": "in a way that shows that you are feeling sorry and wishing that something had not happened",
+    "example": "She shook her head and smiled ruefully"
+  },
+  "sanctimonious": {
+    "definition": "making a show of being morally superior to other people.",
+    "example": "what happened to all the sanctimonious talk about putting his family first?"
+  },
+  "sardonically": {
+    "definition": "humorously, but in an unkind way that shows you do not respect someone or something",
+    "example": "he laughed sardonically"
+  },
+  "sepulchral": {
+    "definition": "relating to a tomb or interment",
+    "example": "sepulchral monuments"
+  },
+  "soporific": {
+    "definition": "causing sleep or making a person want to sleep",
+    "example": "the soporific effect of the heat"
+  },
+  "succinctly": {
+    "definition": "in a way that expresses what needs to be said clearly and without unnecessary words",
+    "example": "I thought she expressed her feelings most succinctly at the meeting"
+  },
+  "surreptitously": {
+    "definition": "secretly, without anyone seeing or knowing",
+    "example": "Joe surreptitiously had a look in the answer book"
+  },
+  "tentative": {
+    "definition": "not certain or fixed; provisional",
+    "example": "a tentative conclusion"
+  },
+  "testily": {
+    "definition": "in a way that shows you are easily annoyed and not patient",
+    "example": "he breaks the equipment, testily blaming newfangled technology"
+  },
+  "wistful": {
+    "definition": "having or showing a feeling of vague or regretful longing",
+    "example": "a wistful smile"
+  }
 }

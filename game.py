@@ -5,7 +5,6 @@ from wordDictionary import WordDictionary, MultipleChoice
 
 
 WORDS_FILE = 'dictionary.json'
-PRINT_PREFIX = '[*]'
 # skip words that have been correctly guessed
 SKIP_CORRECT_WORDS = True
 PRINT_EXAMPLE = False
@@ -44,7 +43,7 @@ class Program:
             print('\tOne is correct and you will simply enter the number of your guess and press enter.')
             print("\tAfterwards the correct answer will appear")
             print()  # newline
-            cmd = input(f"{PRINT_PREFIX} Press enter to begin and type 'q' at any time to quit.\n")
+            cmd = input(f"Press enter to begin and type 'q' at any time to quit.\n")
 
             if cmd == "q":
                 break
